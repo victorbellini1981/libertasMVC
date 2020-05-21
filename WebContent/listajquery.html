@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Lista</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	
+</head>
+<body>
+	<h1>Lista de Dados - jQuery</h1>
+	<div id="resposta"></div>
+	
+	
+	<script type="text/javascript">
+		
+		$("#resposta").html("aguarde, carregando...");
+		
+		
+		$.ajax({
+			type: "POST",
+			url: "Controller?m=ListarProdutos",
+			success: function( data, textStatus, jqXHR) {
+				
+				
+				 var tab = "<table border='1'>";
+					tab += "<th>id</th>";
+					tab += "<th>Descrição</th>";
+					tab += "<th>Marca</th>";
+					tab += "<th>Custo</th>";
+					tab += "<th>Venda</th>";
+					tab += "<th>Quantidade</th>";
+				
+				
+				var dados = JSON.parse(data);
+				
+				for (var i in dados) {
+					console.log(i);
+					console.log(dados[i]);
+					tab += "<tr>";
+					tab += "<td>" + dados[i].idProduto + "</td>";
+					tab += "<td>" + dados[i].descricao + "</td>";
+					tab += "<td>" + dados[i].marca + "</td>";
+					tab += "<td>" + dados[i].custo + "</td>";
+					tab += "<td>" + dados[i].venda + "</td>";
+					tab += "<td>" + dados[i].quantidade + "</td>";
+					tab += "</tr>";
+				}
+				
+				tab += "</table>";
+				$("#resposta").html(tab);
+			},		
+			 
+		});
+		
+	
+	
+	</script>
+	
+	
+</body>
+</html>

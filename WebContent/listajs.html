@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1>Lista AJAX com JS Puro</h1>
+	
+	<div id="resposta"></div>
+	
+	<script type="text/javascript">
+		document.getElementById("resposta").innerHTML = "aguarde, carregando...";
+	
+		var oReq = new XMLHttpRequest();
+		oReq.onload = function(e) {
+		  var dados = oReq.response; // not responseText
+		  
+		  
+		  var tab = "<table border='1'>";
+			tab += "<th>id</th>";
+			tab += "<th>Descrição</th>";
+			tab += "<th>Marca</th>";
+			tab += "<th>Custo</th>";
+			tab += "<th>Venda</th>";
+			tab += "<th>Quantidade</th>";
+			
+			for (var i in dados) {
+				console.log(i);
+				console.log(dados[i]);
+				tab += "<tr>";
+				tab += "<td>" + dados[i].idProduto + "</td>";
+				tab += "<td>" + dados[i].descricao + "</td>";
+				tab += "<td>" + dados[i].marca + "</td>";
+				tab += "<td>" + dados[i].custo + "</td>";
+				tab += "<td>" + dados[i].venda + "</td>";
+				tab += "<td>" + dados[i].quantidade + "</td>";
+				tab += "</tr>";
+			}
+			
+			tab += "</table>";
+			
+			document.getElementById("resposta").innerHTML = tab;
+			
+		  
+		}
+		oReq.open("POST", "Controller?m=ListarProdutos");
+		oReq.responseType = "json";
+		oReq.send();
+	
+	</script>
+	
+	
+</body>
+</html>
